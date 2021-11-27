@@ -6,9 +6,7 @@ from django.http import Http404
 # Create your views here.
 
 def index(request):
-    """
-    A function that saves a user
-     """   
+    
     return render(request, 'index.html')
 
 
@@ -27,7 +25,7 @@ def search_results(request):
         return render(request,'search.html',{"message":message,"images":searched_images})
 
     else:
-        message="You haven't searched for any picture."
+        message="You haven't searched for any term."
         return render(request,'search.html',{"message":message})
     
 def location_results(request, location):
