@@ -4,14 +4,19 @@ from .models import Image, Location
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 # Create your views here.
+
 def index(request):
-       
+    """
+    A function that saves a user
+     """   
     return render(request, 'index.html')
+
 
 def display(request):
     images = Image.objects.all()
     location = Location.objects.all()
     return render(request, 'display.html',{"images":images, "location":location})
+
 
 def search_results(request):
     if 'image' in request.GET and request.GET["image"]:
@@ -22,7 +27,7 @@ def search_results(request):
         return render(request,'search.html',{"message":message,"images":searched_images})
 
     else:
-        message="You haven't searched for any term"
+        message="You haven't searched for any picture."
         return render(request,'search.html',{"message":message})
     
 def location_results(request, location):
