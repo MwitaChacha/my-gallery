@@ -52,7 +52,7 @@
             {% endif %}
         </div>
 
-    <!-- Image modal     -->
+        <!-- Image modal     -->
         <div id="myModal{{picture_item.id}}" class="modal fade" role="dialog" style="color:000">
             <div class="modal-dialog">
                 <div class="modal-content mbody w3-black">
@@ -67,12 +67,24 @@
                         <p>{{picture_item.description}}</p>
                     </div>
                     <footer>
-                        <button id="copy-text-btn" class="btn copy-btn btn-modal">Copy Image Link</button>
+                        <button id="copy-text-btn" class="btn copy-btn btn-modal"
+                            onclick="copyLink('{{picture_item.id}}.url')">Copy Image Link</button>
                         <button type="button" class="btn btn-modal" data-dismiss="modal">Close</button>
+
+                        <input class="form-control copy-space input-lg text-center" type="text" value="{{picture_item.image.url}}"
+                            id="{{picture_item.id}}.url">
+
                     </footer>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+    <script>
+        function copyLink(element) {
+            var copyText = document.getElementById(element);
+            copyText.select();
+            document.execCommand("copy");
+        }
+    </script>
     {% endblock %}
