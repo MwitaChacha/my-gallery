@@ -21,3 +21,12 @@ def search_results(request):
     else:
         message="You haven't searched for any term"
         return render(request,'search.html',{"message":message})
+    
+def location_results(request, location):
+    
+    try:
+        image_location = Image.filter_by_location(location)
+        message = location
+    except ObjectDoesNotExist:
+        raise Http404()
+    return render(request, 'location.html', {"location": image_location, 'message': location})    
