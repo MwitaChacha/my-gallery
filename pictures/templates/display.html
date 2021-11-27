@@ -1,35 +1,29 @@
 {%extends 'base.html'%}
-
 {% load static%}
-
 
 {% block content%}
 
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark  p-4">
-    <!-- <a class="navbar-brand nav-text" href="#">Welcome</a> -->
-    <!-- <a class="navbar-brand" href="#">
-        <img src="{% static "images/DSC_0039.jpg" %}" width="30" height="30" alt="" style="border-radius: 50%">
-      </a> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto">
             <li class="nav-item active">
                 <a class="nav-link nav-text" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
             </li>
-<li>
-    <a class="btn btn-primary dropdown-toggle location-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">View Images By Location</a>
+            <li>
+                <a class="btn btn-primary dropdown-toggle location-toggle mr-4" type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">View Images By Location</a>
 
-        <div class="dropdown-menu dropdown-primary">
-        {% for item in location %}
-        <a class="dropdown-item location-text" href="/location/{{ item.location }}">{{ item.location }}</a>
-        {% endfor %}
-        </div>
-</li>
+                <div class="dropdown-menu dropdown-primary">
+                    {% for item in location %}
+                    <a class="dropdown-item location-text" href="/location/{{ item.location }}">{{ item.location }}</a>
+                    {% endfor %}
+                </div>
+            </li>
         </ul>
         <form class="d-flex my-2 my-lg-0 ms-auto" action="{% url 'search_results' %}">
             <input class="form-control mr-sm-2 search-space" type="search" aria-label="Search" name="image"
@@ -39,13 +33,15 @@
     </div>
 </nav>
 
+
 <div class="container display-sec text-center">
+    <!-- Random Quote -->
     <div class="container text-center mt-4">
         <p>"You've always had the power, <br>you just had to learn it by yourself." <br><strong>Dee Philips</strong>
         </p>
     </div>
+    <!-- Displaying submitted pictures -->
     <div class="row">
-
         {% for picture_item in images %}
         <div class="col-lg-4 col-md-6 col-sm-12 text-center display-area">
             {% if picture_item.image %}
@@ -54,39 +50,29 @@
             {% else %}
             <p>No Image</p>
             {% endif %}
-
         </div>
+
+    <!-- Image modal     -->
         <div id="myModal{{picture_item.id}}" class="modal fade" role="dialog" style="color:000">
             <div class="modal-dialog">
-
-                <!-- Modal content-->
                 <div class="modal-content mbody w3-black">
                     <div class="modal-header">
                         <strong>
                             <p class="p-2"> {{picture_item.name}}</p>
                         </strong>
-
                     </div>
                     <div class="modal-body p-2">
-                        
                         <img src="{{picture_item.image.url}}" style="width:auto; max-height:300px">
-
                         <p class="p-2">This photo was taken in <strong>{{picture_item.location}}.</strong></p>
                         <p>{{picture_item.description}}</p>
                     </div>
                     <footer>
-                        
-                        <button id="copy-text-btn" class="btn copy-btn btn-modal" >Copy Image Link</button>
-
+                        <button id="copy-text-btn" class="btn copy-btn btn-modal">Copy Image Link</button>
                         <button type="button" class="btn btn-modal" data-dismiss="modal">Close</button>
-
                     </footer>
                 </div>
-
             </div>
         </div>
         {% endfor %}
-
     </div>
-    
     {% endblock %}
